@@ -1,0 +1,6 @@
+{
+  "name": "Prontuário e Dossiê Clínico Vascular",
+  "description": "Prontuário médico digital e dossiê clínico vascular para internação e cirurgia no Hospital Naval Marcílio Dias (HNMD).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
