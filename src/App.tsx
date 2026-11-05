@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Header, AppNavView } from './components/Header';
+import { StickyNavigationBar } from './components/StickyNavigationBar';
 import { PatientSummaryBar } from './components/PatientSummaryBar';
 import { ClinicalDossierView } from './components/ClinicalDossierView';
 import { QuickSearch } from './components/QuickSearch';
@@ -416,22 +417,33 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
-      {/* Top Header Sticky & Compact (Sem duplicidades, com ícones ajustados) */}
+      {/* 1. Cabeçalho Superior Limpo: Prontuário à esquerda, Ações à direita */}
       <Header
-        activeView={activeView}
-        setActiveView={setActiveView}
+        onOpenDossier={() => {
+          setActiveView('dossier');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
         onOpenSearch={() => setSearchModalOpen(true)}
         onPrint={handlePrint}
         onAddExam={() => setAddExamModalOpen(true)}
       />
 
-      {/* Patient Summary Demographics Bar */}
+      {/* 2. Cartão do Paciente (Foto ampliada, NIP, CPF, Internação HNMD, Contatos) */}
       <PatientSummaryBar
         onOpenCredentials={() => {
           setActiveView('credentials');
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
         onOpenOfficialMessage={handleOpenOfficialMessage}
+      />
+
+      {/* 3. Barra de Opções Padronizada e Fixa ao Rolar (Sticky) */}
+      <StickyNavigationBar
+        activeView={activeView}
+        setActiveView={(view) => {
+          setActiveView(view);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
       />
 
       {/* Main View Area */}
