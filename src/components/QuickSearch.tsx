@@ -11,6 +11,7 @@ import {
   FileText,
   X,
   ImageIcon,
+  Download,
 } from 'lucide-react';
 
 interface QuickSearchProps {
@@ -56,7 +57,7 @@ export const QuickSearch: React.FC<QuickSearchProps> = ({
     const term = normalizeText(raw);
 
     return labResults.filter((item) => {
-      // 1. Category Filter
+      // 1. Filtro por Categoria
       if (selectedCategory !== 'all') {
         const itemCat = normalizeText(item.category);
         const selCat = normalizeText(selectedCategory);
@@ -65,7 +66,7 @@ export const QuickSearch: React.FC<QuickSearchProps> = ({
 
       if (!term) return true;
 
-      // 2. Direct normalized text matches
+      // 2. Busca direta sem acentos e sem diferenciar maiúsculas/minúsculas
       const normParam = normalizeText(item.paramName);
       const normCat = normalizeText(item.category);
       const normDoc = normalizeText(item.doctor);
@@ -86,7 +87,7 @@ export const QuickSearch: React.FC<QuickSearchProps> = ({
         return true;
       }
 
-      // 3. Smart Semantic Groupings & Aliases requested by user
+      // 3. Reconhecimento Semântico Inteligente de Grupos Clínicos
       // A. Eletrólitos: potássio, sódio, cálcio, magnésio, cloreto, sérico
       const isElectrolyteQuery =
         term.includes('potassio') ||
@@ -115,7 +116,7 @@ export const QuickSearch: React.FC<QuickSearchProps> = ({
         return true;
       }
 
-      // C. Imagem / Vascular: femoral, artéria, oclusão, eco, doppler, laudo, cateterismo, cate, angiotc, tomografia, aorta, iliaca
+      // C. Imagem / Vascular: femoral, artéria, oclusão, eco, doppler, laudo, cateterismo, cate, angiotc, tomografia, aorta, iliaca, carotida
       const isVascularQuery =
         term.includes('femoral') ||
         term.includes('arteria') ||
@@ -176,7 +177,7 @@ export const QuickSearch: React.FC<QuickSearchProps> = ({
 
   const content = (
     <div className="space-y-4">
-      {/* Search Input Bar */}
+      {/* Barra de Pesquisa */}
       <div className="relative">
         <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
         <input
@@ -197,8 +198,8 @@ export const QuickSearch: React.FC<QuickSearchProps> = ({
         )}
       </div>
 
-      {/* Category Filter Tabs - Exact Order Requested */}
-      <div className="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs">
+      {/* Abas de Categorias */}
+      <div className="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs no-scrollbar">
         {CATEGORY_TABS.map((cat) => (
           <button
             key={cat.id}
@@ -214,17 +215,17 @@ export const QuickSearch: React.FC<QuickSearchProps> = ({
         ))}
       </div>
 
-      {/* Results Count & Quick Hint */}
+      {/* Contagem de Resultados */}
       <div className="flex items-center justify-between text-xs text-slate-500 pt-1">
         <span>
           Encontrados: <strong className="text-slate-900 font-mono">{filteredResults.length}</strong> parâmetros / laudos
         </span>
         <span className="hidden sm:inline">
-          Clique em &quot;Ver Laudo&quot; para abrir o documento correspondente
+          Clique em &quot;Ver Laudo&quot; para abrir a folha do exame
         </span>
       </div>
 
-      {/* Results List */}
+      {/* Lista de Resultados */}
       <div className="divide-y divide-slate-100 border border-slate-200 rounded-xl bg-white max-h-[520px] overflow-y-auto">
         {filteredResults.length === 0 ? (
           <div className="p-8 text-center text-slate-500 text-sm">
@@ -258,7 +259,7 @@ export const QuickSearch: React.FC<QuickSearchProps> = ({
                     </h4>
                   </div>
 
-                  {/* Primary value display */}
+                  {/* Exibição do Valor */}
                   <div className="flex flex-wrap items-baseline gap-2 pt-0.5">
                     <span className="text-base font-bold text-slate-900 font-mono">
                       {item.currentValue} {item.unit}
@@ -283,7 +284,7 @@ export const QuickSearch: React.FC<QuickSearchProps> = ({
                     )}
                   </div>
 
-                  {/* Metadata & Physical Location */}
+                  {/* Metadados e Localização Física */}
                   <div className="flex flex-wrap items-center gap-x-2 text-xs text-slate-600 pt-1">
                     <span className="flex items-center gap-1 text-slate-700">
                       <Calendar className="w-3 h-3 text-slate-400" />
@@ -295,7 +296,7 @@ export const QuickSearch: React.FC<QuickSearchProps> = ({
                     <span className="text-slate-500">{item.doctor}</span>
                   </div>
 
-                  {/* Physical folder badge */}
+                  {/* Pasta Física */}
                   <div className="flex items-center gap-1.5 pt-1 text-xs text-cyan-900 font-medium">
                     <MapPin className="w-3.5 h-3.5 text-cyan-700 shrink-0" />
                     <span>
@@ -306,7 +307,7 @@ export const QuickSearch: React.FC<QuickSearchProps> = ({
                   </div>
                 </div>
 
-                {/* Action Buttons: Dual buttons for imaging exams, single button for lab */}
+                {/* Botões de Ação */}
                 <div className="shrink-0 flex items-center gap-2 pt-2 md:pt-0">
                   <button
                     onClick={() => onSelectResult(item)}
@@ -316,6 +317,38 @@ export const QuickSearch: React.FC<QuickSearchProps> = ({
                     <FileText className="w-3.5 h-3.5 text-slate-600" />
                     <span>Ver Laudo</span>
                   </button>
+
+                  {item.pdfPath && (
+                    <a
+                      href={item.pdfPath}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-2.5 py-1.5 text-xs font-medium text-teal-800 bg-teal-50 hover:bg-teal-100 border border-teal-200 rounded-lg transition-colors flex items-center gap-1 cursor-pointer whitespace-nowrap"
+                      title="Abrir arquivo PDF original deste exame"
+                    >
+                      <Download className="w-3.5 h-3.5 text-teal-600" />
+                      <span className="hidden sm:inline">PDF</span>
+                    </a>
+                  )}
+
+                  {isImageExam && onOpenGallery && (
+                    <button
+                      onClick={() => {
+                        if (item.paramName.toLowerCase().includes('cateterismo')) {
+                          onOpenGallery('cateterismo');
+                        } else if (item.paramName.toLowerCase().includes('doppler')) {
+                          onOpenGallery('doppler');
+                        } else {
+                          onOpenGallery('all');
+                        }
+                      }}
+                      className="px-3 py-1.5 text-xs font-semibold text-white bg-teal-700 hover:bg-teal-600 rounded-lg transition-colors flex items-center gap-1.5 whitespace-nowrap shadow-2xs cursor-pointer"
+                      title="Ver galeria de imagens e fotos"
+                    >
+                      <ImageIcon className="w-3.5 h-3.5" />
+                      <span>Ver Imagens</span>
+                    </button>
+                  )}
                 </div>
               </div>
             );
