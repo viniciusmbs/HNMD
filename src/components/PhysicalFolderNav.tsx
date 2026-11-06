@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 
 interface PhysicalFolderNavProps {
+  items?: PhysicalFolderItem[];
   onOpenDocument: (item: PhysicalFolderItem) => void;
   onOpenGallery?: (galleryId: string) => void;
   onOpenDividersModal?: (type: 'dividers' | 'labels') => void;
@@ -23,6 +24,7 @@ interface PhysicalFolderNavProps {
 }
 
 export const PhysicalFolderNav: React.FC<PhysicalFolderNavProps> = ({
+  items = physicalFolderItems,
   onOpenDocument,
   onOpenGallery,
   onOpenDividersModal,
@@ -135,8 +137,8 @@ export const PhysicalFolderNav: React.FC<PhysicalFolderNavProps> = ({
 
   const filteredItems =
     filterTab === 'all'
-      ? physicalFolderItems
-      : physicalFolderItems.filter((i) => i.tab === filterTab);
+      ? items
+      : items.filter((i) => i.tab === filterTab);
 
   return (
     <div className="space-y-6">
@@ -321,21 +323,6 @@ export const PhysicalFolderNav: React.FC<PhysicalFolderNavProps> = ({
                     >
                       <FileText className="w-3 h-3 text-slate-600" />
                       <span>Ver Laudo</span>
-                    </button>
-                  )}
-
-                  {[13, 14, 15, 16, 17].includes(item.itemNumber) && onOpenGallery && (
-                    <button
-                      onClick={() => {
-                        if (item.itemNumber === 13) onOpenGallery('cateterismo');
-                        else if (item.itemNumber === 14 || item.itemNumber === 15) onOpenGallery('doppler');
-                        else onOpenGallery('all');
-                      }}
-                      className="px-2.5 py-1.5 text-xs font-semibold text-white bg-teal-700 hover:bg-teal-600 rounded-lg transition-colors flex items-center gap-1 shadow-2xs cursor-pointer"
-                      title="Ver galeria de imagens e fotos do exame"
-                    >
-                      <span>Ver Imagens</span>
-                      <ExternalLink className="w-3 h-3" />
                     </button>
                   )}
                 </div>

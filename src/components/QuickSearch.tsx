@@ -220,7 +220,7 @@ export const QuickSearch: React.FC<QuickSearchProps> = ({
           Encontrados: <strong className="text-slate-900 font-mono">{filteredResults.length}</strong> parâmetros / laudos
         </span>
         <span className="hidden sm:inline">
-          Clique em &quot;Ver Laudo&quot; ou &quot;Ver Imagens&quot; para abrir o documento correspondente
+          Clique em &quot;Ver Laudo&quot; para abrir o documento correspondente
         </span>
       </div>
 
@@ -316,25 +316,6 @@ export const QuickSearch: React.FC<QuickSearchProps> = ({
                     <FileText className="w-3.5 h-3.5 text-slate-600" />
                     <span>Ver Laudo</span>
                   </button>
-
-                  {isImageExam && onOpenGallery && (
-                    <button
-                      onClick={() => {
-                        if (item.paramName.toLowerCase().includes('cateterismo')) {
-                          onOpenGallery('cateterismo');
-                        } else if (item.paramName.toLowerCase().includes('doppler')) {
-                          onOpenGallery('doppler');
-                        } else {
-                          onOpenGallery('all');
-                        }
-                      }}
-                      className="px-3 py-1.5 text-xs font-semibold text-white bg-teal-700 hover:bg-teal-600 rounded-lg transition-colors flex items-center gap-1.5 whitespace-nowrap shadow-2xs cursor-pointer"
-                      title="Ver galeria de imagens e fotos"
-                    >
-                      <ImageIcon className="w-3.5 h-3.5" />
-                      <span>Ver Imagens</span>
-                    </button>
-                  )}
                 </div>
               </div>
             );

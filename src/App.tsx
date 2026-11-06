@@ -41,8 +41,9 @@ export default function App() {
   const [folderInitialTab, setFolderInitialTab] = useState<'all' | 1 | 2 | 3 | 4>('all');
   const [imageGalleryFilter, setImageGalleryFilter] = useState<'all' | 'cateterismo' | 'doppler'>('all');
 
-  // Dynamic user-added exams
+  // Dynamic user-added exams and folder items
   const [customExams, setCustomExams] = useState<LabResultItem[]>([]);
+  const [customFolderItems, setCustomFolderItems] = useState<PhysicalFolderItem[]>([]);
 
   // Modal viewer state
   const [viewerState, setViewerState] = useState<{
@@ -162,6 +163,11 @@ export default function App() {
         '/assets/rendered/laudo_cargaviral_cd4_p02.png',
       ];
       initialPage = result.pageNumber ? result.pageNumber - 1 : 0;
+    } else if (itemNum === 10 || result.id === 'hiv-pendente-p168579') {
+      pages = [
+        '/assets/rendered/resultado.png',
+      ];
+      initialPage = 0;
     }
     // 2. Blocos de Análises Clínicas de Sangue
     else if (itemNum === 11 || (blockText.includes('Cecília') && result.category !== 'Resumo Clínico')) {
@@ -469,9 +475,10 @@ export default function App() {
           />
         )}
 
-        {/* PASTA FÍSICA (4 ABAS & 18 ITENS NUMERADOS) */}
+        {/* PASTA FÍSICA (4 ABAS & ITENS NUMERADOS) */}
         {activeView === 'folder' && (
           <PhysicalFolderNav
+            items={[...customFolderItems, ...physicalFolderItems]}
             initialTab={folderInitialTab}
             onOpenDocument={handleOpenDocument}
             onOpenGallery={handleOpenGallery}
@@ -648,9 +655,13 @@ export default function App() {
       <AddExamModal
         isOpen={addExamModalOpen}
         onClose={() => setAddExamModalOpen(false)}
-        onAddExam={(newExam) => {
+        nextItemNumber={18 + customFolderItems.length + 1}
+        onAddExam={(newExam, newFolderItem) => {
           setCustomExams((prev) => [newExam, ...prev]);
           labResults.unshift(newExam);
+          if (newFolderItem) {
+            setCustomFolderItems((prev) => [newFolderItem, ...prev]);
+          }
         }}
       />
 

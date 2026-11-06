@@ -71,16 +71,16 @@ export const PatientSummaryBar: React.FC<PatientSummaryBarProps> = ({
                 </div>
               </div>
 
-              {/* Right: Internação HNMD (Acima) + 3 Botões Padronizados (Abaixo) */}
-              <div className="flex flex-col sm:items-end gap-2.5 shrink-0">
-                {/* Acima: Badge destacada e clicável de Internação HNMD */}
+              {/* Right: Internação HNMD (Acima) + 2 Botões Paralelos (Abaixo) */}
+              <div className="flex flex-col sm:items-end gap-2 shrink-0">
+                {/* Acima: Badge destacada e clicável de Internação HNMD - com largura perfeitamente paralela à linha de botões abaixo */}
                 <button
                   onClick={onOpenOfficialMessage}
-                  className="inline-flex items-center gap-2 bg-amber-50/90 hover:bg-amber-100/90 border border-amber-300 rounded-xl px-3 py-1.5 shadow-2xs self-start sm:self-end cursor-pointer transition-all group"
+                  className="w-full flex items-center justify-between gap-2.5 bg-amber-50/90 hover:bg-amber-100/90 border border-amber-300 rounded-xl px-3.5 py-1.5 shadow-2xs cursor-pointer transition-all group"
                   title="Clique para abrir a Mensagem Oficial SIGAD-MB e Despacho CFMG (Página 1 e 2)"
                 >
-                  <Calendar className="w-3.5 h-3.5 text-amber-700 shrink-0 group-hover:scale-110 transition-transform" />
-                  <div className="flex items-baseline gap-1.5">
+                  <div className="flex items-center gap-2">
+                    <Calendar className="w-3.5 h-3.5 text-amber-700 shrink-0 group-hover:scale-110 transition-transform" />
                     <span className="text-[11px] font-bold text-amber-950 uppercase tracking-wide">
                       Internação HNMD:
                     </span>
@@ -88,24 +88,24 @@ export const PatientSummaryBar: React.FC<PatientSummaryBarProps> = ({
                       09/11/2026 · 2º Tempo
                     </span>
                   </div>
-                  <span className="text-[10px] font-bold text-amber-800 bg-amber-200/60 px-1.5 py-0.2 rounded font-mono">
+                  <span className="text-[10px] font-bold text-amber-800 bg-amber-200/60 border border-amber-300/80 px-2 py-0.2 rounded font-mono shrink-0">
                     SIGAD-MB
                   </span>
                 </button>
 
-                {/* Abaixo: Linha com os 3 botões padronizados (mesma altura, estilo e alinhamento) */}
-                <div className="flex flex-wrap items-center gap-2">
+                {/* Abaixo: Linha com os botões Contatos de Emergência e Ver Resumo Clínico paralelos */}
+                <div className="flex items-center gap-2 w-full">
                   {/* 1. Botão Contatos de Emergência */}
                   <button
                     onClick={() => setShowContacts(!showContacts)}
-                    className={`h-9 px-3.5 rounded-xl text-xs font-semibold border transition-all flex items-center gap-2 cursor-pointer shadow-2xs ${
+                    className={`flex-1 h-9 px-3 rounded-xl text-xs font-semibold border transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs whitespace-nowrap ${
                       showContacts
                         ? 'bg-cyan-700 text-white border-cyan-800 shadow-xs'
                         : 'bg-cyan-50 text-cyan-900 border-cyan-300 hover:bg-cyan-100/90'
                     }`}
                     title="Clique para ver os telefones dos familiares e acompanhantes"
                   >
-                    <Phone className="w-4 h-4 text-cyan-700 shrink-0" />
+                    <Phone className="w-3.5 h-3.5 text-cyan-700 shrink-0" />
                     <span>Contatos de Emergência ({patientData.contacts.length})</span>
                     {showContacts ? (
                       <ChevronUp className="w-3.5 h-3.5 opacity-80" />
@@ -117,7 +117,7 @@ export const PatientSummaryBar: React.FC<PatientSummaryBarProps> = ({
                   {/* 2. Botão Ver Resumo Clínico */}
                   <button
                     onClick={() => setShowClinicalSummary(!showClinicalSummary)}
-                    className={`h-9 px-3.5 rounded-xl text-xs font-semibold border transition-all flex items-center gap-2 cursor-pointer shadow-2xs ${
+                    className={`flex-1 h-9 px-3 rounded-xl text-xs font-semibold border transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs whitespace-nowrap ${
                       showClinicalSummary
                         ? 'bg-slate-800 text-white border-slate-900'
                         : 'bg-slate-50 text-slate-700 border-slate-300 hover:bg-slate-100 hover:text-slate-900'
@@ -130,16 +130,6 @@ export const PatientSummaryBar: React.FC<PatientSummaryBarProps> = ({
                     ) : (
                       <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
                     )}
-                  </button>
-
-                  {/* 3. Botão Senhas Labs */}
-                  <button
-                    onClick={onOpenCredentials}
-                    className="h-9 px-3.5 rounded-xl text-xs font-semibold bg-yellow-50 text-yellow-950 border border-yellow-300 hover:bg-yellow-100/90 transition-all flex items-center gap-2 cursor-pointer shadow-2xs"
-                    title="Ver senhas dos portais online"
-                  >
-                    <Key className="w-4 h-4 text-yellow-700 shrink-0" />
-                    <span>Senhas Labs ({labPortals.length})</span>
                   </button>
                 </div>
               </div>

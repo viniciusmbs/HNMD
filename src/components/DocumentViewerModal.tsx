@@ -38,7 +38,7 @@ export const DocumentViewerModal: React.FC<DocumentViewerModalProps> = ({
   location,
 }) => {
   const [currentPageIndex, setCurrentPageIndex] = useState(initialPage);
-  const [zoomLevel, setZoomLevel] = useState(1);
+  const [zoomLevel, setZoomLevel] = useState(1.25);
   const [rotation, setRotation] = useState(0);
   const [invertContrast, setInvertContrast] = useState(false);
   const [scrolledDown, setScrolledDown] = useState(false);
@@ -48,7 +48,7 @@ export const DocumentViewerModal: React.FC<DocumentViewerModalProps> = ({
   useEffect(() => {
     if (isOpen) {
       setCurrentPageIndex(Math.min(Math.max(0, initialPage), Math.max(0, pages.length - 1)));
-      setZoomLevel(1);
+      setZoomLevel(1.25);
       setRotation(0);
       setInvertContrast(false);
       setScrolledDown(false);
@@ -184,18 +184,31 @@ export const DocumentViewerModal: React.FC<DocumentViewerModalProps> = ({
               </button>
             </div>
 
-            {/* Quick 100% Button */}
-            <button
-              onClick={() => handleSetExactZoom(1)}
-              className={`px-2.5 py-1.5 text-xs font-semibold rounded-lg border transition-colors cursor-pointer ${
-                zoomLevel === 1
-                  ? 'bg-cyan-950 text-cyan-300 border-cyan-700'
-                  : 'bg-slate-900 text-slate-300 border-slate-700 hover:bg-slate-800 hover:text-white'
-              }`}
-              title="Fixar em 100%"
-            >
-              100%
-            </button>
+            {/* Quick 100% & 125% Buttons */}
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => handleSetExactZoom(1)}
+                className={`px-2 py-1.5 text-xs font-semibold rounded-lg border transition-colors cursor-pointer ${
+                  zoomLevel === 1
+                    ? 'bg-cyan-950 text-cyan-300 border-cyan-700 font-bold'
+                    : 'bg-slate-900 text-slate-300 border-slate-700 hover:bg-slate-800 hover:text-white'
+                }`}
+                title="Fixar em 100%"
+              >
+                100%
+              </button>
+              <button
+                onClick={() => handleSetExactZoom(1.25)}
+                className={`px-2 py-1.5 text-xs font-semibold rounded-lg border transition-colors cursor-pointer ${
+                  zoomLevel === 1.25
+                    ? 'bg-cyan-950 text-cyan-300 border-cyan-700 font-bold'
+                    : 'bg-slate-900 text-slate-300 border-slate-700 hover:bg-slate-800 hover:text-white'
+                }`}
+                title="Fixar em 125%"
+              >
+                125%
+              </button>
+            </div>
 
             {/* Fit to screen button */}
             <button
@@ -237,9 +250,11 @@ export const DocumentViewerModal: React.FC<DocumentViewerModalProps> = ({
             {pdfPath && (
               <a
                 href={pdfPath}
+                target="_blank"
+                rel="noopener noreferrer"
                 download
                 className="px-2.5 py-1.5 text-xs font-semibold text-white bg-teal-700 hover:bg-teal-600 border border-teal-600 rounded-lg transition-colors flex items-center gap-1.5 shadow-2xs"
-                title="Baixar arquivo original assinado"
+                title="Abrir ou baixar arquivo PDF original assinado"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span className="hidden md:inline">PDF Original</span>

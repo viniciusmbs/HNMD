@@ -30,18 +30,18 @@ export const StickyNavigationBar: React.FC<StickyNavigationBarProps> = ({
   }[] = [
     {
       id: 'dossier',
-      label: 'Dossiê Clinicos',
+      label: 'Dossiê Clínico',
       icon: <Activity className="w-4 h-4 shrink-0" />,
     },
     {
       id: 'folder',
-      label: 'Pasta Física ',
+      label: 'Pasta Física',
       icon: <Folder className="w-4 h-4 shrink-0" />,
     },
     {
       id: 'checklist',
       label: 'Checklist HNMD',
-      
+      badge: '9 de 10',
       badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-300',
       icon: <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />,
     },
@@ -58,8 +58,6 @@ export const StickyNavigationBar: React.FC<StickyNavigationBarProps> = ({
     {
       id: 'credentials',
       label: 'Laboratórios & Senhas',
- 
-      badgeColor: 'bg-amber-100 text-amber-900 border-amber-300',
       icon: <Key className="w-4 h-4 shrink-0 text-amber-600" />,
     },
     {
