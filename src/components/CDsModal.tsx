@@ -1,5 +1,5 @@
 import React from 'react';
-import { Disc, FileText, X, HardDrive, CheckCircle2, AlertCircle, ExternalLink } from 'lucide-react';
+import { Disc, FileText, X, HardDrive, CheckCircle2, AlertCircle, Download, ExternalLink, ShieldCheck } from 'lucide-react';
 
 interface CDsModalProps {
   isOpen: boolean;
@@ -22,6 +22,7 @@ export const CDsModal: React.FC<CDsModalProps> = ({
       details: 'Série tomográfica DICOM volumétrica completa de alta resolução (cortes finos axiais, coronais, sagitais e reconstruções 3D).',
       protocol: 'Ordem 471034 · Protocolo 1001 1636599',
       date: '24/09/2026 (Realização) · Laudo em 27/10/2026',
+      downloadUrl: 'https://drive.usercontent.google.com/download?id=1rI_kWglf_e_2m6ttTgIslLyey76JNf-3&export=download&authuser=0&confirm=t&uuid=94cedbfb-f4bf-4772-b1f5-a4b56b8a599c&at=AMrWOn3B6lEqKM3DL3E-LdQ3dIfZ:1793989003690',
       laudoTitle: 'Laudo de Angiotomografia da Aorta Abdominal e MMII',
       laudoPages: [
         '/assets/rendered/laudo_angiotc_aorta_mmii_p01.png',
@@ -37,6 +38,7 @@ export const CDsModal: React.FC<CDsModalProps> = ({
       details: 'Série DICOM completa da vasculatura torácica, aorta torácica, vasos da base e parênquima pulmonar.',
       protocol: 'Ordem 471034 · Protocolo 1001 1636589',
       date: '24/09/2026 (Realização) · Laudo em 27/10/2026',
+      downloadUrl: 'https://drive.usercontent.google.com/download?id=1kybvRlKhEJp6IlrzdR5_57oriOyf184s&export=download&authuser=0&confirm=t&uuid=c842da7a-3e22-413b-803a-84a873e665c8&at=AMrWOn1by2rAzpcluzXW-plSn6Hf:1793989059173',
       laudoTitle: 'Laudo de Angiotomografia Multislice Arterial Torácica',
       laudoPages: [
         '/assets/rendered/laudo_angiotc_torax_p01.png',
@@ -52,6 +54,7 @@ export const CDsModal: React.FC<CDsModalProps> = ({
       details: 'Gravações dinâmicas completas em vídeo DICOM da circulação coronariana por punção radial direita (TCE, ADA, ACX e CD).',
       protocol: 'Exame CATE 88181 · Dr. Antonio José Muniz (CRM 21929)',
       date: '01/10/2026 às 13:14',
+      downloadUrl: 'https://drive.usercontent.google.com/download?id=1GTOJTHd0d7qvPzw2U9b_JmGIOSMOEciE&export=download&authuser=0&confirm=t&uuid=a2c31086-7ff5-48e8-a21b-79d60a14983b&at=AMrWOn1SxRZpcCPQg64j8VAsSd_m:1793989098736',
       laudoTitle: 'Cateterismo Cardíaco CATE 88181 (Livre de Obstruções)',
       laudoPages: [
         '/assets/rendered/laudo_cateterismo_88181_p01.png',
@@ -71,7 +74,7 @@ export const CDsModal: React.FC<CDsModalProps> = ({
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200"
+        className="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -101,6 +104,35 @@ export const CDsModal: React.FC<CDsModalProps> = ({
 
         {/* Content */}
         <div className="p-5 space-y-4">
+          {/* Guia Visual de Acesso Médico DICOM Web */}
+          <div className="bg-cyan-50/70 border border-cyan-200 rounded-xl p-4 space-y-2 text-xs text-slate-800">
+            <div className="flex items-center justify-between border-b border-cyan-200/60 pb-2">
+              <span className="font-bold text-cyan-950 flex items-center gap-1.5 text-sm">
+                📌 Guia Rápido: Como Visualizar as Fatias DICOM 3D
+              </span>
+              <a 
+                href="https://www.imaios.com/br/imaios-dicom-viewer" 
+                target="_blank" 
+                rel="noreferrer"
+                className="text-cyan-700 hover:text-cyan-900 font-semibold flex items-center gap-1 underline"
+              >
+                <span>Abrir IMAIOS Viewer</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            </div>
+
+            <ol className="list-decimal list-inside space-y-1 text-slate-700 pt-1 leading-relaxed">
+              <li>Clique no botão <strong>"Baixar CD DICOM (ZIP)"</strong> do exame desejado para salvar o pacote no computador.</li>
+              <li>Acesse o <a href="https://www.imaios.com/br/imaios-dicom-viewer" target="_blank" rel="noreferrer" className="text-cyan-700 underline font-semibold">IMAIOS DICOM Viewer</a> no navegador.</li>
+              <li><strong>Arraste o arquivo .ZIP baixado</strong> diretamente para a área central da tela do site para navegar por todas as fatias tomográficas com ajuste de janela, zoom e contraste.</li>
+            </ol>
+
+            <div className="flex items-center gap-1.5 text-[11px] text-emerald-700 pt-1 font-medium">
+              <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>Arquivos originais verificados, livres de vírus, contendo metadados DICOM autênticos para uso clínico.</span>
+            </div>
+          </div>
+
           {/* Instrução HNMD */}
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-3.5 text-xs text-amber-900 flex items-start gap-2.5">
             <AlertCircle className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
@@ -114,9 +146,9 @@ export const CDsModal: React.FC<CDsModalProps> = ({
             {cdList.map((cd) => (
               <div
                 key={cd.number}
-                className="bg-white border border-slate-200 rounded-xl p-4 shadow-2xs hover:border-slate-300 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-3.5"
+                className="bg-white border border-slate-200 rounded-xl p-4 shadow-2xs hover:border-slate-300 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-4"
               >
-                <div className="flex items-start gap-3">
+                <div className="flex items-start gap-3 flex-1">
                   <div className="w-9 h-9 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-800 font-mono font-bold text-xs shrink-0 mt-0.5">
                     {cd.number}
                   </div>
@@ -136,17 +168,31 @@ export const CDsModal: React.FC<CDsModalProps> = ({
                   </div>
                 </div>
 
-                <button
-                  onClick={() => {
-                    onClose();
-                    onOpenLaudo(cd.laudoTitle, cd.laudoPages, cd.pdfPath);
-                  }}
-                  className="px-3 py-1.5 text-xs font-semibold text-slate-900 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-xl transition-colors flex items-center gap-1.5 shrink-0 self-start sm:self-center cursor-pointer whitespace-nowrap"
-                  title="Abrir laudo oficial correspondente"
-                >
-                  <FileText className="w-3.5 h-3.5 text-slate-600" />
-                  <span>Ver Laudo / Imagens</span>
-                </button>
+                {/* Botões de Ação */}
+                <div className="flex flex-col sm:flex-col gap-2 shrink-0 self-stretch sm:self-center">
+                  <a
+                    href={cd.downloadUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="px-3.5 py-1.5 text-xs font-semibold text-white bg-cyan-700 hover:bg-cyan-800 rounded-xl transition-colors flex items-center justify-center gap-1.5 shadow-xs cursor-pointer text-center"
+                    title="Baixar arquivo ZIP com fatias DICOM"
+                  >
+                    <Download className="w-3.5 h-3.5" />
+                    <span>Baixar CD DICOM (ZIP)</span>
+                  </a>
+
+                  <button
+                    onClick={() => {
+                      onClose();
+                      onOpenLaudo(cd.laudoTitle, cd.laudoPages, cd.pdfPath);
+                    }}
+                    className="px-3.5 py-1.5 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-xl transition-colors flex items-center justify-center gap-1.5 cursor-pointer text-center"
+                    title="Abrir laudo oficial correspondente em PDF"
+                  >
+                    <FileText className="w-3.5 h-3.5 text-slate-600" />
+                    <span>Ver Laudo PDF</span>
+                  </button>
+                </div>
               </div>
             ))}
           </div>
