@@ -21,8 +21,8 @@ interface QuickSearchProps {
 }
 
 const CATEGORY_TABS = [
-  { id: 'all', label: 'Todos os Resultados' },
-  { id: 'Resumo Clínico', label: 'Resumos Clínicos & Pareceres' },
+  { id: 'all', label: 'Todos' },
+  { id: 'Resumo Clínico', label: 'Resumos - Pareceres' },
   { id: 'Imagem/Laudo', label: 'Exames de Imagem' },
   { id: 'Renal', label: 'Renal' },
   { id: 'Eletrólitos', label: 'Eletrólitos' },
