@@ -66,7 +66,7 @@ export const PatientSummaryBar: React.FC<PatientSummaryBarProps> = ({
                   </div>
 
                   <div className="text-xs text-slate-600 font-mono mt-0.5">
-                    NIP: {patientData.nip} · CPF: {patientData.cpf} · Nasc: {patientData.birthDate} ({patientData.age} anos)
+                    NIP: {patientData.nip} · CPF: {patientData.cpf} · Nasc: {patientData.birthDate} ({patientData.age} anos) · <span className="font-bold text-slate-900">Tipo: {patientData.bloodType}</span>
                   </div>
                 </div>
               </div>
@@ -242,7 +242,7 @@ export const PatientSummaryBar: React.FC<PatientSummaryBarProps> = ({
                 </span>
               </div>
               <div className="text-xs text-slate-600 font-mono">
-                NIP: {patientData.nip} · CPF: {patientData.cpf} · Nasc: {patientData.birthDate}
+                NIP: {patientData.nip} · CPF: {patientData.cpf} · Nasc: {patientData.birthDate} · <span className="font-bold text-slate-900">Tipo: {patientData.bloodType}</span>
               </div>
               <div className="text-xs text-slate-500 pt-1 flex items-center gap-1.5">
                 <HeartPulse className="w-3.5 h-3.5 text-rose-500 shrink-0" />
