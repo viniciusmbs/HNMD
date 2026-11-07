@@ -170,7 +170,7 @@ export default function App() {
       initialPage = 0;
     }
     // 2. Blocos de Análises Clínicas de Sangue
-    else if (itemNum === 11 || (blockText.includes('Cecília') && result.category !== 'Resumo Clínico')) {
+    else if (blockText.includes('Cecília') && result.category !== 'Resumo Clínico') {
       pages = [
         '/assets/rendered/lab_carlos_chagas_cecilia_9p_p01.png',
         '/assets/rendered/lab_carlos_chagas_cecilia_9p_p02.png',
@@ -183,7 +183,7 @@ export default function App() {
         '/assets/rendered/lab_carlos_chagas_cecilia_9p_p09.png',
       ];
       initialPage = result.pageNumber ? result.pageNumber - 1 : 0;
-    } else if (itemNum === 12 || (blockText.includes('Lucas Klier') && result.category !== 'Imagem/Laudo')) {
+    } else if (blockText.includes('Lucas Klier') && result.category !== 'Imagem/Laudo') {
       pages = [
         '/assets/rendered/lab_santacasa_klier_5p_p01.png',
         '/assets/rendered/lab_santacasa_klier_5p_p02.png',
@@ -235,7 +235,7 @@ export default function App() {
 
     setViewerState({
       isOpen: true,
-      title: `${result.paramName}: ${result.currentValue} ${result.unit}`,
+      title: `${result.paramName}: ${result.currentValue}${result.unit && !result.currentValue.includes(result.unit) ? ` ${result.unit}` : ''}`,
       subtitle: `${result.laboratory} · ${result.doctor}`,
       pages,
       initialPage: Math.min(Math.max(0, initialPage), pages.length - 1),
