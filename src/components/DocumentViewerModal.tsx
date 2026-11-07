@@ -38,7 +38,7 @@ export const DocumentViewerModal: React.FC<DocumentViewerModalProps> = ({
   location,
 }) => {
   const [currentPageIndex, setCurrentPageIndex] = useState(initialPage);
-  const [zoomLevel, setZoomLevel] = useState(1.25);
+  const [zoomLevel, setZoomLevel] = useState(1);
   const [rotation, setRotation] = useState(0);
   const [invertContrast, setInvertContrast] = useState(false);
   const [scrolledDown, setScrolledDown] = useState(false);
@@ -48,7 +48,7 @@ export const DocumentViewerModal: React.FC<DocumentViewerModalProps> = ({
   useEffect(() => {
     if (isOpen) {
       setCurrentPageIndex(Math.min(Math.max(0, initialPage), Math.max(0, pages.length - 1)));
-      setZoomLevel(1.25);
+      setZoomLevel(1);
       setRotation(0);
       setInvertContrast(false);
       setScrolledDown(false);
