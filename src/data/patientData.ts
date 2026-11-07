@@ -7,6 +7,7 @@ export const patientData: PatientInfo = {
   rg: '5265266',
   birthDate: '14/04/1971',
   age: 55,
+  bloodType: 'A+',
   origin: 'Capitania Fluvial de Minas Gerais (CFMG - Marinha do Brasil)',
   destination: 'Hospital Naval Marcílio Dias (HNMD) - Clínica de Cirurgia Vascular',
   admissionDate: '09/11/2026 (Segundo Tempo)',
