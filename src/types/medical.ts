@@ -5,6 +5,7 @@ export interface PatientInfo {
   rg: string;
   birthDate: string;
   age: number;
+  bloodType: string;
   origin: string;
   destination: string;
   admissionDate: string;
