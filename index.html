@@ -12,6 +12,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+      // Silenciar erro de WebSocket do Vite (comum em ambientes de desenvolvimento restritos)
+      window.addEventListener('unhandledrejection', (event) => {
+        if (event.reason && event.reason.message && (event.reason.message.includes('WebSocket') || event.reason.message.includes('failed to connect'))) {
+          event.preventDefault();
+        }
+      });
+      // Capturar erros de log do console para evitar poluição visual de infraestrutura
+      const originalError = console.error;
+      console.error = (...args) => {
+        if (args[0] && typeof args[0] === 'string' && (args[0].includes('[vite] failed to connect') || args[0].includes('WebSocket'))) {
+          return;
+        }
+        originalError.apply(console, args);
+      };
+    </script>
   </head>
   <body class="bg-slate-50 text-slate-900 font-sans antialiased selection:bg-cyan-500/20 selection:text-cyan-900">
     <div id="root"></div>
